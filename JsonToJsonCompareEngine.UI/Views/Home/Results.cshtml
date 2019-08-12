@@ -1,0 +1,351 @@
+﻿
+@{
+    ViewData["Title"] = "Results";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+<p class="text-right"><b>Report-Date: </b>@DateTime.Now.ToString()</p>
+<div class="text-center heading-top">
+    <h2 style="background-color: #ffffd4">
+        Previous VS Current Version - CDR Files Comparision
+    </h2>
+</div>
+<div class="container">
+    <div class="row">
+        <a href="~/">
+            <i class="glyphicon glyphicon-arrow-left" style="margin:0px;"></i>
+            <span>back</span>
+        </a>
+        <div class="clearfix"></div>
+        <br />
+
+        <div>
+            <label>Prevoius File Name:</label> <span id="prevFileName">{{PreviousFileName}}</span>
+        </div>
+        <div>
+            <label>Current File Name:</label> <span id="currFileName">{{CurrentFileName}}</span>
+        </div>
+        <div>
+            <label>State:</label> <span id="stateName">{{State}}</span>
+            <label>County:</label> <span id="countyName">{{County}}</span>
+        </div>
+
+        <div class="panel-group result-panel">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse1">
+                            <img class="result-img" src="~/images/TickIcon.png">
+                            Matched Element List
+                        </a>
+                        <div class="btn-group pull-right">
+                            <a data-toggle="collapse" href="#collapse1" class="btn btn-default btn-sm">
+                                <i class="indicator glyphicon glyphicon-menu-down"></i>
+                            </a>
+                        </div>
+                    </h4>
+
+                </div>
+                <div id="collapse1" class="panel-collapse collapse">
+                    <div class="panel-body result-table">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Sr. No.
+                                        </th>
+                                        <th>
+                                            Element Name
+                                        </th>
+                                        <th>
+                                            Previous Version
+                                        </th>
+                                        <th>
+                                            Current Version
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ExlusionListBody">
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*<div class="panel-footer">Panel Footer</div>*@
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse2">
+                            <img class="result-img" src="~/images/CautionIcon.png">
+                            Mismatched Element List
+                        </a>
+                        <div class="btn-group pull-right">
+                            <a data-toggle="collapse" href="#collapse2" class="btn btn-default btn-sm">
+                                <i class="indicator glyphicon glyphicon-menu-down"></i>
+                            </a>
+                        </div>
+                    </h4>
+
+                </div>
+                <div id="collapse2" class="panel-collapse collapse">
+                    <div class="panel-body result-table">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Sr. No.
+                                        </th>
+                                        <th>
+                                            Element Name
+                                        </th>
+                                        <th>
+                                            Previous Version
+                                        </th>
+                                        <th>
+                                            Current Version
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ExlusionListBody">
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*<div class="panel-footer">Panel Footer</div>*@
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse3">
+                            <img class="result-img" src="~/images/BlockIcon.png">
+                            New/Removed Element List
+                        </a>
+                        <div class="btn-group pull-right">
+                            <a data-toggle="collapse" href="#collapse3" class="btn btn-default btn-sm">
+                                <i class="indicator glyphicon glyphicon-menu-down"></i>
+                            </a>
+                        </div>
+                    </h4>
+
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <div class="panel-body result-table">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Sr. No.
+                                        </th>
+                                        <th>
+                                            Element Name
+                                        </th>
+                                        <th>
+                                            Previous Version
+                                        </th>
+                                        <th>
+                                            Current Version
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ExlusionListBody">
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*<div class="panel-footer">Panel Footer</div>*@
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" href="#collapse4">
+                            <img class="result-img" src="~/images/CloseIcon.png">
+                            Excluded Element List
+                        </a>
+                        <div class="btn-group pull-right">
+                            <a data-toggle="collapse" href="#collapse4" class="btn btn-default btn-sm">
+                                <i class="indicator glyphicon glyphicon-menu-down"></i>
+                            </a>
+                        </div>
+                    </h4>
+
+                </div>
+                <div id="collapse4" class="panel-collapse collapse">
+                    <div class="panel-body result-table">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>
+                                            Sr. No.
+                                        </th>
+                                        <th>
+                                            Element Name
+                                        </th>
+                                        <th>
+                                            Previous Version
+                                        </th>
+                                        <th>
+                                            Current Version
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody id="ExlusionListBody">
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 </td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                        <td>* elapsedTimeMS</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    @*<div class="panel-footer">Panel Footer</div>*@
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts
+    {
+    <script>
+        function toggleChevron(e) {
+            $(e.target)
+                .prev('.panel-heading')
+                .find("i.indicator")
+                .toggleClass('glyphicon-menu-down glyphicon-menu-up');
+        }
+        $('.result-panel').on('hidden.bs.collapse', toggleChevron);
+        $('.result-panel').on('shown.bs.collapse', toggleChevron);
+    </script>
+}

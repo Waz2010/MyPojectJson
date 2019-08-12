@@ -1,0 +1,273 @@
+﻿@model JsonToJsonCompareEngine.UI.Models.ViewModel
+@{
+    ViewData["Title"] = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script language="javascript" type="text/javascript">
+    function GetCounty(_stateId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $("#ddlcounty").html(procemessage).show();
+        var url = "/Home/GetCountyByStateId/";
+
+        $.ajax({
+            url: url,
+            data: { stateid: _stateId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value='0'>Select Country</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + data[x].Value + ">" + data[x].Text + "</option>";
+                }
+                $("#ddlcounty").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    };
+
+    function GetFiles(_countyId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $(".ddlfile").html(procemessage).show();
+        var url = "/Home/GetFilesByCountyId/";
+
+        $.ajax({
+            url: url,
+            data: { countyid: _countyId },
+            cache: false,
+            type: "POST",
+            success: function (data) {
+                var markup = "<option value='0' selected>Select File</option>";
+                for (var x = 0; x < data.length; x++) {
+                    markup += "<option value=" + x + ">" + data[x].text + "</option>";
+                }
+                $(".ddlfile").html(markup).show();
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+    };
+
+    function GetFilesByStateAndCounty(_countyId) {
+        var procemessage = "<option value='0'> Please wait...</option>";
+        $(".ddlfile").html(procemessage).show();
+        var url = "/Home/GetFilesByStateAndCounty/";
+        if ($('#ddlcounty').val() != '0')
+            $.ajax({
+                url: url,
+                data: { Countyid: _countyId, StateId: $("#ddlstate option:selected").val() },
+                cache: false,
+                type: "POST",
+                success: function (data) {
+                    if (data.Status == "NA") {
+                        alert(data.Msg);
+                    }
+                    var markup = "<option value='-1' selected>Select File</option>";
+                    for (var x = 0; x < data.PrevFiles.length; x++) {
+                        markup += "<option value=" + x + ">" + data.PrevFiles[x] + "</option>";
+                    }
+                    $("#ddlfile1").html(markup).show();
+                    markup = "<option value='-1' selected>Select File</option>";
+                    for (var x = 0; x < data.PrevFiles.length; x++) {
+                        markup += "<option value=" + x + ">" + data.CurrFiles[x] + "</option>";
+                    }
+                    $("#ddlfile2").html(markup).show();
+                },
+                error: function (reponse) {
+                    alert("error : " + reponse);
+                }
+            });
+    };
+
+    function LoadPartialView(_previous, _current) {
+        alert('_previous');
+        alert('_current');
+        var url = "/Home/OnGetCompareResults/";
+        $.ajax({
+            url: url,
+            data: { _previousFile: _previous, _currentFile: _current },
+            cache: false,
+            type: "GET",
+            success: function (data) {
+                alert(JSON.stringify(data));
+            },
+            error: function (reponse) {
+                alert("error : " + reponse);
+            }
+        });
+
+    };</script>
+<div class="text-center heading-top">
+    <h2 style="background-color: #ffffd4">
+        DTOCR CDR Files Comparision
+    </h2>
+</div>
+<div class="container">
+    <div class="row">
+
+        <div class="content">
+            <div class="input">
+                <div id="comparisonForm">
+                    <br />
+                    <div class="col-sm-6 col-xs-6" ng-class="{ 'has-error' : parent_form.MobilePhoneNumber.$invalid && formSubmitted}">
+                        <label for="State">State</label>
+                        @Html.DropDownListFor(m => m.States, new SelectList(Model.States, "Id", "StateName"), "Select State", new { @id = "ddlstate", @class = "form-control", @onchange = "javascript:GetCounty(this.value)" })
+
+                    </div>
+                    <div class="col-sm-6 col-xs-6" ng-class="{ 'has-error' : parent_form.MobilePhoneNumber.$invalid && formSubmitted}">
+                        <label for="State">Country</label>
+                        <select id="ddlcounty" name="ddlcounty" class="form-control" onchange="GetFilesByStateAndCounty(this.value)" required="required"></select>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="col-xs-12" ng-class="{ 'has-error' : parent_form.MobilePhoneNumber.$invalid && formSubmitted}">
+                        <label for="State">Previous File</label>
+                        <select id="ddlfile1" class="ddlfile form-control" required="required" name="@Html.NameFor(c=>c.SelectedPreviousFile)"></select>
+                    </div>
+                    <div class="col-xs-12" ng-class="{ 'has-error' : parent_form.MobilePhoneNumber.$invalid && formSubmitted}">
+                        <label for="State">Current File</label>
+                        <select id="ddlfile2" class="ddlfile form-control" required="required" name="@Html.NameFor(c=>c.SelectedCurrentFile)"></select>
+                    </div>
+                    <div class="clearfix"></div>
+                    <br />
+                    <div class="col-xs-12 text-center">
+
+                        <button class="center-block btn btn-success" style="width: 270px;" onclick="LoadPartialView('/Users/newtonacho/Documents/Folder1/Test.json', '/Users/newtonacho/Documents/Folder1/Test1.json')">
+                            Compare
+                        </button>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#myModal">
+                            <span>(Click here for Exclusion List)</span>
+                        </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <br />
+                </div>
+                @*<table class="input-table">
+                        <tr>
+                            <td>
+                                <p>
+                                    <b>State</b>
+                                    <br />
+                                    @Html.DropDownListFor(m => m.States, new SelectList(Model.States, "Id", "StateName"), "Select State", new { @id = "ddlstate", @style = "width:200px;", @onchange = "javascript:GetCounty(this.value)" })
+                                    <br />
+                                    <br />
+                                    <b>County</b>
+                                    <br />
+                                    <select id="ddlcounty" name="ddlcounty" style="width: 200px" onchange="GetFiles(this.value)" required="required"></select>
+                                    <br />
+                                    <br />
+                                    <b>Previous File</b>
+                                    <br />
+                                    <select class="ddlfile" style="width: 300px" required="required" name="@Html.NameFor(c=>c.SelectedPreviousFile)"></select>
+                                    <br />
+                                    <br />
+                                    <b>Current File</b>
+                                    <br />
+                                    <select class="ddlfile" style="width: 300px" required="required" name="@Html.NameFor(c=>c.SelectedCurrentFile)"></select>
+                                    <!-- @Html.DropDownListFor(m => m.SelectedCounty, new SelectList(Model.Counties, "Value", "Text"), "Select County", htmlAttributes: new { @class = "form-control", @id = "County", @style = "width:200px;" }) -->
+                                    <br />
+                                    <br />
+                                    <br />
+                                    <input type="button" value="Save" onclick="LoadPartialView('/Users/newtonacho/Documents/Folder1/Test.json', '/Users/newtonacho/Documents/Folder1/Test1.json')" />
+                                </p>
+                            </td>
+                        </tr>
+                    </table>*@
+            </div>
+        </div>
+        <div>
+            @await Component.InvokeAsync("CompareResult", new { previousFile = @"C:\Users\wasee\Desktop\Repo\JsonToJson\JsonFiles\Pre\Test1.json", currentFile = @"C:\Users\wasee\Desktop\Repo\JsonToJson\JsonFiles\Post\Test1.json" })
+        </div>
+
+        <div class="footer"></div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Exclusion List</h4>
+            </div>
+            <div class="modal-body table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>
+                                Sr. No.
+                            </th>
+                            <th>
+                                Element Name
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody id="ExlusionListBody" class="pointer">
+                        @{
+                            var i = 1;
+                        }
+                        @foreach (var item in Model.Exclusions)
+                        {
+                            <tr onclick="removeRow()">
+                                <td>@i </td>
+                                <td>@item</td>
+                            </tr>
+                            {
+                                i = i + 1;
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@section Scripts
+    {
+    <script>
+        $('#ddlstate').change(function () {
+            $("#ddlcounty").val('');
+            $("#ddlfile1").val('');
+            $("#ddlfile2").val('');
+            $("#ddlfile1").val($("#ddlfile1 option:first").val());
+            $("#ddlfile2").val($("#ddlfile2 option:first").val());
+            if ($(this).val().length > 0) {
+                $("#stateName").html($("#ddlstate option:selected").text());
+            }
+        });
+        $('#ddlcounty').change(function () {
+            if ($(this).val() != '0') {
+                $("#countryName").html($("#ddlcounty option:selected").text());
+            }
+        });
+        $('#ddlfile1').change(function () {
+            if ($(this).val() != '-1') {
+                $("#prevFileName").html($("#ddlfile1 option:selected").text());
+            }
+        });
+        $('#ddlfile2').change(function () {
+            if ($(this).val() != '-1') {
+                $("#currFileName").html($("#ddlfile2 option:selected").text());
+            }
+        });
+
+        $('#ExlusionListBody tr').on('click', function () {
+            var empty = $(this).find('td').filter(function () { return $(this).text() == '' || $(this).text() == '&nbsp;'; })
+                .end();
+            if (empty.length > 0) {
+                $(this).remove();
+            }
+        });
+
+    </script>
+}

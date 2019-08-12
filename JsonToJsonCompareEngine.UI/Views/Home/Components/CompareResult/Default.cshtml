@@ -1,0 +1,56 @@
+﻿@model JsonToJsonCompareEngine.ComparisonOutput
+@{
+    ViewData["Title"] = "Grid";
+}
+
+<div class="table-responsive center-block">
+    <div>
+        <label>Prevoius File Name:</label> <span id="prevFileName"></span>
+    </div>
+    <div>
+        <label>Current File Name:</label> <span id="currFileName"></span>
+    </div>
+    <div>
+        <label>State:</label> <span id="stateName"></span>
+        <label>Country:</label> <span id="countryName"></span>
+    </div>
+    <table class="event-list">
+        <tr style="background-color:cyan">
+            <!-- Remove This >>>>> class="pointer" onclick="Redirect()"-->
+            <th colspan="2" align="center">Total Elements Count</th>
+            <th rowspan="2" align="center">Matched elements Count</th>
+            <th rowspan="2">Mismatched Count</th>
+            <th colspan="2" align="center">Current Version</th>
+            <th rowspan="2">Exclusion Count</th>
+        </tr>
+        <tr style="background-color:cyan;border:2px">
+            <th>Previous Version</th>
+            <th>Current Version</th>
+            <th>Removed Elements</th>
+            <th>Added Elements</th>
+        </tr>
+        @if (Model.FileCompareResult != null)
+        {
+            <tr class="pointer" onclick="Redirect('param')">
+                <td>@Model.FileCompareResult.StateInPrevious</td>
+                <td>@Model.FileCompareResult.StateInCurrent</td>
+                <td>@Model.FileCompareResult.FileExistInNew</td>
+                <td>@Model.FileCompareResult.FileExistInOld</td>
+                <td>@Model.FileCompareResult.TotalElementsCountInNew</td>
+                <td>@Model.FileCompareResult.TotalElementsCountInOld</td>
+                <td>@Model.FileCompareResult.MatchedElementsCount</td>
+                <td>@Model.FileCompareResult.MismatchedCounts</td>
+                <td>@Model.FileCompareResult.RemovedElementsInNew</td>
+                <td>@Model.FileCompareResult.AddedElementsInNew</td>
+                <td>@Model.FileCompareResult.ExclusionCount</td>
+            </tr>
+        }
+    </table>
+</div>
+
+
+<script>
+    function Redirect(param) {
+        window.location.href = "/Home/Results";
+    }
+</script>
